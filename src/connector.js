@@ -1,18 +1,25 @@
 
 //const mongodb = require('mongodb');
-
-const mongoURI = "mongodb://localhost:27017" + "/covidtally"
-
 let mongoose = require('mongoose');
-const { tallySchema } = require('./schema')
+const mongoURI = "mongodb+srv://ayush:ayush123@cluster0.swqiskf.mongodb.net/firts_db?retryWrites=true&w=majority"
 
 
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => { console.log("connection established with mongodb server online"); })
-    .catch(err => {
-        console.log("error while connection", err)
-    });
-collection_connection = mongoose.model('covidtally', tallySchema)
+// const { tallySchema } = require('./schema')
+
+const database = (module.exports=()=>{
+    const connParams = {
+        useNewUrlParser:true,
+        useUnifiedTopology:true,
+    };
+    try{
+        mongoose.connect(mongoURI,connParams);
+        console.log("database is connected ");
+    }
+    catch(err){
+        console.log("not connected due to ",err);
+    }
+})
+
+database();
 
 
-exports.connection = collection_connection;

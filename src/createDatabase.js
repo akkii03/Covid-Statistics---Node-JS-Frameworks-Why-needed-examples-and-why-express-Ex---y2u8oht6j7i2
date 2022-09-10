@@ -1,9 +1,14 @@
-const { connection } = require('./connector')
+const collection_Model  = require('./schema')
 const { data } = require('./data')
 
 const refreshAll = async () => {
-    await connection.deleteMany({})
+    await collection_Model.deleteMany({})
     // console.log(connection)
-    await connection.insertMany(data)
+    await collection_Model.insertMany(data)
+    
+    
+    console.log("connect is ",collection_Model);
+    console.log("database is created");
 }
 refreshAll()
+exports.createDatabase = refreshAll;
